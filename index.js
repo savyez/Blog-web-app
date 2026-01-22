@@ -37,6 +37,24 @@ app.get("/create", (req, res) => {
     res.render("create.ejs");
 });
 
+app.post("/create", (req, res) => {
+    const title = req.body.title;
+    const author = req.body.author;
+    const content = req.body.content;
+    console.log(title, author, content);
+    res.render("post.ejs", { 
+        title, 
+        author, 
+        content 
+    });
+
+    // res.redirect("/posts");
+});
+
+app.get("/posts", (req, res) => {
+    res.render("post.ejs");
+});
+
 
 app.get("/signup", (req, res) => {
     res.render("signup.ejs");

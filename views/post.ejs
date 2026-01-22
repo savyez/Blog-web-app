@@ -1,0 +1,16 @@
+<%- include('partials/header') %>
+
+<% if(title && author && content) { %>
+    <div class="container mt-5">
+        <h1><%= title %></h1>
+        <p class="lead">By <%= author %></p>
+        <hr class="my-4">
+        <p><%= content %></p>
+    </div>
+<% } else { %>
+    <div class="container mt-5">
+        <h1>No post to display</h1>
+    </div>
+<% } %>
+
+<%- include('partials/footer') %>

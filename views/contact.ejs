@@ -2,24 +2,27 @@
 
 <div class="container mt-5">
     <h1>Contact Us</h1>
-    <form action="/contact" method="POST">
-        <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-        </div>
-        <br/>
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <br/>
-        <div class="form-group">
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" rows="1" required></textarea>
-        </div>
-        <br/>
-        <button type="submit">Send Message</button>
-    </form>
-</div>
+    <main class="form-signin w-50 ht-200 m-auto"> 
+    <form>  
+        <h1 class="h3 mb-3 fw-normal">Contact Me</h1> 
+        <div class="form-floating"> 
+            <input type="text" class="form-control" id="floatingInput" placeholder="Name"> 
+            <label for="floatingInput">Name</label>
+            <div id="emailHelp" class="form-text">We never share your data with anyone else.</div> 
+        </div> 
+        <br>
+        <div class="form-floating"> 
+            <input type="email" class="form-control" id="floatingEmail" placeholder="Email"> 
+            <label for="floatingEmail">Email</label> 
+        </div> 
+        <br>
+        <div class="form-check text-start my-3"> 
+            <label for="content" class="form-label">Content</label>
+            <textarea class="form-control" id="content" name="content" rows="10" required></textarea> 
+        </div> 
+        <br>
+        <button class="btn btn-primary w-100 py-2" type="submit">Log in</button> 
+    </form> 
+</main>
 
 <%- include('partials/footer.ejs') %>
