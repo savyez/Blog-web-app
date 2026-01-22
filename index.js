@@ -32,6 +32,19 @@ let User = {
 
 let userInfo = [];
 
+function isGmail(email) {
+  if (email.includes(" ")) return false;
+
+  const domain = "@gmail.com";
+
+  if (!email.endsWith(domain)) return false;
+
+  const username = email.slice(0, -domain.length);
+  if (username.length === 0) return false;
+
+  return true;
+}
+
 // Home route
 app.get("/", (req, res) => {
     res.render("index.ejs", { posts: postInfo });
@@ -42,6 +55,21 @@ app.get("/contact", (req, res) => {
     res.render("contact.ejs");
 });
 
+
+app.post("/contact", (req, res) => {
+    const name = req.body.name;
+    const email = req.body.email;
+    if (!name || !email) {
+        res.send("Name and email are required!");
+        return;
+    }
+    if (!isGmail(email)) {
+        res.send("Invalid email format! Please use a valid Gmail address.");
+        return;
+    }
+    console.log(`Contact form submitted by ${name} with email ${email}`);
+    res.send("Thank you for contacting us!");
+});
 
 
 // Other routes
