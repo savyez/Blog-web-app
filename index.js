@@ -21,6 +21,21 @@ app.get("/", (req, res) => {
     res.render("index.ejs");
 })
 
+app.get("/about", (req, res) => {
+    res.render("about.ejs");
+});
+
+app.get("/contact", (req, res) => {
+    res.render("contact.ejs");
+});
+
+app.get("/signup", (req, res) => {
+    res.render("signup.ejs");
+});
+
+app.get("/login", (req, res) => {
+    res.render("login.ejs");
+});
 
 // Start the server
 app.listen(PORT, () => {

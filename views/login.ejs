@@ -1,0 +1,22 @@
+<%- include('partials/header.ejs') %>
+
+<div class="container mt-5">
+    <h2>Login to Your Account</h2>
+    <form action="/login" method="POST">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="password">Password: <span> </label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <br>
+        <button type="submit">Login</button>
+    </form>
+    <br>
+    <p>Don't have an account? <a href="/signup">Sign up here</a></p>
+</div>
+
+<%- include('partials/footer.ejs') %>
