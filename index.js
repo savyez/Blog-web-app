@@ -15,11 +15,18 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+let post = {
+  title: null,
+  author: null,
+  content: null
+};
+
+let listOfInfo = [];
 
 // Home route
 app.get("/", (req, res) => {
-    res.render("index.ejs");
-})
+    res.render("index.ejs", { listOfInfo });
+});
 
 
 app.get("/contact", (req, res) => {
@@ -37,22 +44,26 @@ app.get("/create", (req, res) => {
     res.render("create.ejs");
 });
 
-app.post("/create", (req, res) => {
-    const title = req.body.title;
-    const author = req.body.author;
-    const content = req.body.content;
-    console.log(title, author, content);
-    res.render("post.ejs", { 
-        title, 
-        author, 
-        content 
-    });
 
-    // res.redirect("/posts");
+// Creating new post and redirecting to post page
+app.post("/create", (req, res) => {
+  post = {
+    title: req.body.title,
+    author: req.body.author,
+    content: req.body.content,
+  };
+  listOfInfo.push(post);
+  res.redirect("/post");
 });
 
-app.get("/posts", (req, res) => {
-    res.render("post.ejs");
+// Displaying created post
+app.get("/post", (req, res) => {
+  res.render("created-post.ejs", post);
+});
+
+
+app.get("/article", (req, res) => {
+  res.render("article.ejs", post);
 });
 
 
