@@ -1,0 +1,19 @@
+<%- include('partials/header.ejs') %>
+
+<div class="container mt-5">
+    <h1>Create a New Blog Post</h1>
+    <form action="/create" method="POST">
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+        <br>
+        <div class="mb-3">
+            <label for="content" class="form-label">Content</label>
+            <textarea class="form-control" id="content" name="content" rows="10" required></textarea>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <br>
+    </form>
+</div>
