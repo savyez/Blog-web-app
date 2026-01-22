@@ -21,17 +21,27 @@ let post = {
   content: null
 };
 
-let listOfInfo = [];
+let postInfo = [];
+
+let User = {
+  firstName: null,
+  lastName: null,
+  username: null,
+  password: null
+}
+
+let userInfo = [];
 
 // Home route
 app.get("/", (req, res) => {
-    res.render("index.ejs", { listOfInfo });
+    res.render("index.ejs", { posts: postInfo });
 });
 
 
 app.get("/contact", (req, res) => {
     res.render("contact.ejs");
 });
+
 
 
 // Other routes
@@ -52,7 +62,7 @@ app.post("/create", (req, res) => {
     author: req.body.author,
     content: req.body.content,
   };
-  listOfInfo.push(post);
+  postInfo.unshift(post);
   res.redirect("/post");
 });
 
@@ -62,6 +72,7 @@ app.get("/post", (req, res) => {
 });
 
 
+// Displaying article page and sending post data
 app.get("/article", (req, res) => {
   res.render("article.ejs", post);
 });
@@ -72,9 +83,42 @@ app.get("/signup", (req, res) => {
 });
 
 
+// Handling signup data and redirecting to login page
+app.post("/signup", (req, res) => {
+    User = {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        username: req.body.username,
+        password: req.body.password,
+    };
+    console.log(User);
+    userInfo.push(User);
+    res.redirect("/login");
+});
+
+
 app.get("/login", (req, res) => {
     res.render("login.ejs");
 });
+
+
+// Handling login data and User Authentication and redirecting to home page
+app.post("/login", (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+
+    if (!User.username || !User.password) {
+        res.send("No user found. Please sign up first.");
+        return;
+    }
+    
+    if (username === User.username && password === User.password) {
+        res.redirect("/");
+    } else {
+        res.send("Invalid credentials. Please try again.");
+    }
+});
+
 
 
 // Start the server
