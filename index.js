@@ -15,6 +15,13 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+let isLoggedIn = false;
+app.use((req, res, next) => {
+  res.locals.isLoggedIn = isLoggedIn;
+  next();
+});
+
 let post = {
   title: null,
   author: null,
@@ -45,9 +52,13 @@ function isGmail(email) {
   return true;
 }
 
+
+
 // Home route
 app.get("/", (req, res) => {
-    res.render("index.ejs", { posts: postInfo });
+    res.render("index.ejs", { 
+        posts: postInfo,
+    });
 });
 
 
@@ -141,6 +152,7 @@ app.post("/login", (req, res) => {
     }
     
     if (username === User.username && password === User.password) {
+        isLoggedIn = true;
         res.redirect("/");
     } else {
         res.send("Invalid credentials. Please try again.");
@@ -148,6 +160,10 @@ app.post("/login", (req, res) => {
 });
 
 
+app.get("/logout", (req, res) => {
+  isLoggedIn = false;
+  res.redirect("/");
+});
 
 // Start the server
 app.listen(PORT, () => {
