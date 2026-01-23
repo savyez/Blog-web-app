@@ -1,12 +1,12 @@
 <%- include('partials/header') %>
 
-<body class="container mt-5">
+<body class="container-fluid mt-5">
 
-    <div class="container px-4 py-5" id="custom-cards"> 
+    <div class="container-fluid px-4 py-5" id="custom-cards"> 
         <h1 class="pb-2 border-bottom">Posts</h1> 
         <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
             <% if (posts.length === 0) { %>
-                <h3>No posts yet. <br>Be the first to <a href="/create" class="create-button">Create</a> one!</h3>
+                <h3>There are no posts yet. <br><a href="/login" class="create-button">Login</a> to create one!</h3>
             <% } else { %>
                 <% posts.forEach(function(post) { %>
                     <div class="col">
@@ -15,6 +15,9 @@
                                 <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold"><%= post.title %></h3>
                                 <button class="btn btn-outline-primary me-2 mt-5">
                                     <a href="/article" class="text-white text-decoration-none">Read Post</a>
+                                </button>
+                                <button class="btn btn-outline-primary me-2 mt-5">
+                                    <a href="/article" class="text-white text-decoration-none">Edit Post</a>
                                 </button>
                             </div>
                         </div>

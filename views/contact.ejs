@@ -1,10 +1,10 @@
 <%- include('partials/header.ejs') %>
 
 <div class="container mt-5">
-    <h1>Contact Us</h1>
-    <main class="form-signin w-50 ht-200 m-auto"> 
+    <h1>Contact Me</h1>
+    <main class="form-signin m-auto"> 
     <form action="/contact" method="post">  
-        <h1 class="h3 mb-3 fw-normal">Contact Me</h1> 
+
         <div class="form-floating"> 
             <input type="text" name="name" class="form-control" id="floatingInput" placeholder="Name"> 
             <label for="floatingInput">Name</label>
@@ -16,7 +16,7 @@
             <label for="floatingEmail">Email</label> 
         </div> 
         <br>
-        <div class="form-check text-start my-3"> 
+        <div class="form-check text-start"> 
             <label for="content" class="form-label">Message</label>
             <textarea class="form-control" id="content" name="message" rows="10" required></textarea> 
         </div> 
