@@ -135,7 +135,7 @@ app.post("/login", (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
-    if (!User.username || !User.password) {
+    if (!User.username) {
         res.send("No user found. Please sign up first.");
         return;
     }

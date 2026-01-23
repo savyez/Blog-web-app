@@ -6,7 +6,7 @@
         <h1 class="pb-2 border-bottom">Posts</h1> 
         <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
             <% if (posts.length === 0) { %>
-                <h3>No posts yet. Be the first to <a href="/create">Create</a> one!</h3>
+                <h3>No posts yet. <br>Be the first to <a href="/create" class="create-button">Create</a> one!</h3>
             <% } else { %>
                 <% posts.forEach(function(post) { %>
                     <div class="col">
