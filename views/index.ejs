@@ -6,19 +6,17 @@
         <h1 class="pb-2 border-bottom">Posts</h1> 
         <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
             <% if (posts.length === 0) { %>
-                <h3>There are no posts yet. <br><a href="/login" class="create-button">Login</a> to create one!</h3>
+                <h3>There are no posts yet. <br><a href="/create" class="create-button">Create</a> one!</h3>
             <% } else { %>
                 <% posts.forEach(function(post) { %>
                     <div class="col">
                         <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-color: #333;">
                             <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
                                 <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold"><%= post.title %></h3>
-                                <button class="btn btn-outline-primary me-2 mt-5">
-                                    <a href="/article" class="text-white text-decoration-none">Read Post</a>
-                                </button>
-                                <button class="btn btn-outline-primary me-2 mt-5">
-                                    <a href="/article" class="text-white text-decoration-none">Edit Post</a>
-                                </button>
+                                <div class="mt-5">
+                                    <a href="/article" class="btn btn-outline-primary me-2">Read Post</a>
+                                    <a href="/article/edit" class="btn btn-outline-primary">Edit Post</a>
+                                </div>
                             </div>
                         </div>
                     </div>

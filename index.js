@@ -56,17 +56,23 @@ function isGmail(email) {
 
 // Home route
 app.get("/", (req, res) => {
-    res.render("index.ejs", { 
-        posts: postInfo,
-    });
+    if (isLoggedIn) {
+        res.render("index.ejs", { 
+            posts: postInfo,
+        });
+    } else {
+        res.redirect("/login");
+    }
 });
 
 
+// Contact routes
 app.get("/contact", (req, res) => {
     res.render("contact.ejs");
 });
 
 
+// Handling contact form submission
 app.post("/contact", (req, res) => {
     const name = req.body.name;
     const email = req.body.email;
@@ -89,6 +95,7 @@ app.get("/about", (req, res) => {
 });
 
 
+// Displaying create post page
 app.get("/create", (req, res) => {
     res.render("create.ejs");
 });
@@ -105,6 +112,7 @@ app.post("/create", (req, res) => {
   res.redirect("/post");
 });
 
+
 // Displaying created post
 app.get("/post", (req, res) => {
   res.render("created-post.ejs", post);
@@ -116,7 +124,15 @@ app.get("/article", (req, res) => {
   res.render("article.ejs", post);
 });
 
+app.put("/article/edit", (req, res) => {
+    post.title = req.body.title;
+    post.author = req.body.author;
+    post.content = req.body.content;
+    res.render("article.ejs", post);
+});
 
+
+// Displaying signup page
 app.get("/signup", (req, res) => {
     res.render("signup.ejs");
 });
@@ -136,6 +152,7 @@ app.post("/signup", (req, res) => {
 });
 
 
+// Displaying login page
 app.get("/login", (req, res) => {
     res.render("login.ejs");
 });
@@ -160,10 +177,13 @@ app.post("/login", (req, res) => {
 });
 
 
+// Handling logout and redirecting to home page
 app.get("/logout", (req, res) => {
   isLoggedIn = false;
   res.redirect("/");
 });
+
+
 
 // Start the server
 app.listen(PORT, () => {
