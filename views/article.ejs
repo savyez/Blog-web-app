@@ -7,6 +7,7 @@
         <hr class="my-4">
         <p><%= post.content %></p>
         <a href="/article/edit/<%= post.id %>" class="btn btn-outline-primary me-2">Edit Post</a>
+        <a href="/article/delete/<%= post.id %>" class="btn btn-outline-primary me-2">Delete Post</a>
     </div>
 <% } else { %>
     <div class="container mt-5">
