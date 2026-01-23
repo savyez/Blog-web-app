@@ -85,27 +85,6 @@ This project demonstrates routing, templating, authentication basics, CRUD opera
 
 ---
 
-📸 Screenshots
-
-Below are sample screenshots of the application.
-(Place images inside a /screenshots folder in the project root.)
-
-🏠 Home Page
-![Home Page](<img width="1917" height="912" alt="image" src="https://github.com/user-attachments/assets/3f662161-e923-40f6-b506-c44be2ccb70a" />)
-✍️ Create Post
-![Create Post](<img width="1919" height="912" alt="image" src="https://github.com/user-attachments/assets/1edcdc0a-c5dd-4cab-85a7-a3ae315ddf98" />
-)
-📄 View Post
-![View Post](<img width="1918" height="910" alt="image" src="https://github.com/user-attachments/assets/59e6604e-bdb4-4e8f-981a-f54680844905" />
-)
-✏️ Edit Post
-![Edit Post](<img width="1919" height="912" alt="image" src="https://github.com/user-attachments/assets/25be3b5b-1c22-4856-b21c-46ea5bbfd5a5" />
-)
-📬 Contact Page
-![Contact Page](<img width="1919" height="910" alt="image" src="https://github.com/user-attachments/assets/19fa8ff5-912d-4e02-bd24-5c869455147d" />
-)
-
----
 
 ## ⚠️ Known Issues & Short-Term Limitations
 
