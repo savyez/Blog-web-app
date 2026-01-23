@@ -1,0 +1,30 @@
+<%- include("partials/header") %>
+
+<div class="container mt-5">
+    <h1>Edit Article</h1>
+
+    <form action="/article/edit/<%= post.id %>" method="POST">
+
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="title" placeholder="Title" value="<%= post.title %>" required>
+            <label>Title</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="author" placeholder="Author" value="<%= post.author %>" required>
+            <label>Author</label>
+        </div>
+
+        <div class="form-floating mb-4">
+            <textarea class="form-control" name="content" placeholder="Content" style="height: 300px" required><%= post.content %></textarea>
+            <label>Content</label>
+        </div>
+
+        <button class="btn btn-primary w-100">
+            Update Post
+        </button>
+
+    </form>
+</div>
+
+<%- include("partials/footer") %>

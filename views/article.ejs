@@ -1,11 +1,12 @@
 <%- include('partials/header') %>
 
-<% if(title && author && content) { %>
+<% if(post && post.title && post.author && post.content) { %>
     <div class="container mt-5">
-        <h1><%= title %></h1>
-        <p class="lead">By <%= author %></p>
+        <h1><%= post.title %></h1>
+        <p class="lead">By <%= post.author %></p>
         <hr class="my-4">
-        <p><%= content %></p>
+        <p><%= post.content %></p>
+        <a href="/article/edit/<%= post.id %>" class="btn btn-outline-primary me-2">Edit Post</a>
     </div>
 <% } else { %>
     <div class="container mt-5">

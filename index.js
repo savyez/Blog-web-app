@@ -1,6 +1,5 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import ejs from 'ejs'; 
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -17,16 +16,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 let isLoggedIn = false;
-app.use((req, res, next) => {
+app.use((_req, res, next) => {
   res.locals.isLoggedIn = isLoggedIn;
   next();
 });
 
-let post = {
-  title: null,
-  author: null,
-  content: null
-};
+class Post {
+    constructor(id, title, author, content) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.content = content;
+    }
+}
 
 let postInfo = [];
 
@@ -43,7 +45,6 @@ function isGmail(email) {
   if (email.includes(" ")) return false;
 
   const domain = "@gmail.com";
-
   if (!email.endsWith(domain)) return false;
 
   const username = email.slice(0, -domain.length);
@@ -53,9 +54,8 @@ function isGmail(email) {
 }
 
 
-
 // Home route
-app.get("/", (req, res) => {
+app.get("/", (_req, res) => {
     if (isLoggedIn) {
         res.render("index.ejs", { 
             posts: postInfo,
@@ -67,7 +67,7 @@ app.get("/", (req, res) => {
 
 
 // Contact routes
-app.get("/contact", (req, res) => {
+app.get("/contact", (_req, res) => {
     res.render("contact.ejs");
 });
 
@@ -90,50 +90,87 @@ app.post("/contact", (req, res) => {
 
 
 // Other routes
-app.get("/about", (req, res) => {
+app.get("/about", (_req, res) => {
     res.render("about.ejs");
 });
 
 
 // Displaying create post page
-app.get("/create", (req, res) => {
+app.get("/create", (_req, res) => {
     res.render("create.ejs");
 });
 
 
 // Creating new post and redirecting to post page
 app.post("/create", (req, res) => {
-  post = {
-    title: req.body.title,
-    author: req.body.author,
-    content: req.body.content,
-  };
+    const post = new Post(
+    Date.now().toString(),
+    req.body.title,
+    req.body.author,
+    req.body.content
+  );
   postInfo.unshift(post);
   res.redirect("/post");
 });
 
 
 // Displaying created post
-app.get("/post", (req, res) => {
-  res.render("created-post.ejs", post);
+app.get("/post", (_req, res) => {
+  if (postInfo.length === 0) {
+    res.redirect("/");
+    return;
+  }
+  res.render("created-post.ejs", {
+    id: postInfo[0].id,
+    title: postInfo[0].title,
+    author: postInfo[0].author,
+    content: postInfo[0].content
+  });
+});
+
+
+// Displaying article edit page
+app.get("/article/edit/:id", (req, res) => {
+    const postId = req.params.id;
+    const post = postInfo.find(p => p.id === postId);
+    if (post) {
+        res.render("edit.ejs", { post });
+    } else {
+        res.status(404).send("Post not found");
+    }
 });
 
 
 // Displaying article page and sending post data
-app.get("/article", (req, res) => {
-  res.render("article.ejs", post);
+app.get("/article/:id", (req, res) => {
+  const postId = req.params.id;
+  const post = postInfo.find(p => p.id === postId);
+  if (post) {
+    res.render("article.ejs", { post });
+  } else {
+    res.status(404).send("Post not found");
+  }
 });
 
-app.put("/article/edit", (req, res) => {
-    post.title = req.body.title;
-    post.author = req.body.author;
-    post.content = req.body.content;
-    res.render("article.ejs", post);
+
+// Handling article edit data and redirecting to article page
+app.post("/article/edit/:id", (req, res) => {
+    const postId = req.params.id;
+    const post = postInfo.find(p => p.id === postId);
+    if (post) {
+        post.title = req.body.title;
+        post.author = req.body.author;
+        post.content = req.body.content;
+        res.redirect(`/article/${postId}`);
+    } else {
+        res.status(404).send("Post not found");
+    }
 });
+
 
 
 // Displaying signup page
-app.get("/signup", (req, res) => {
+app.get("/signup", (_req, res) => {
     res.render("signup.ejs");
 });
 
@@ -153,7 +190,7 @@ app.post("/signup", (req, res) => {
 
 
 // Displaying login page
-app.get("/login", (req, res) => {
+app.get("/login", (_req, res) => {
     res.render("login.ejs");
 });
 
@@ -164,7 +201,7 @@ app.post("/login", (req, res) => {
     const password = req.body.password;
 
     if (!User.username) {
-        res.send("No user found. Please sign up first.");
+        res.redirect("/signup");
         return;
     }
     
@@ -178,7 +215,7 @@ app.post("/login", (req, res) => {
 
 
 // Handling logout and redirecting to home page
-app.get("/logout", (req, res) => {
+app.get("/logout", (_req, res) => {
   isLoggedIn = false;
   res.redirect("/");
 });
