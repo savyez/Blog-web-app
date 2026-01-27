@@ -169,7 +169,7 @@ app.post("/article/edit/:id", (req, res) => {
 
 
 // Handling article deletion and redirecting to home page
-app.get("/article/delete/:id", (req, res) => {
+app.post("/article/delete/:id", (req, res) => {
     const postId = req.params.id;
     postInfo = postInfo.filter(p => p.id !== postId);
     res.redirect("/");
